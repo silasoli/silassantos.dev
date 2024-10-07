@@ -9,7 +9,14 @@ const App: React.FC = () => {
     }
 
     const timer = setInterval(() => {
-      setCountdown((prev) => prev - 1);
+      setCountdown((prev) => {
+        if (prev > 0) {
+          return prev - 1;
+        } else {
+          clearInterval(timer); // Para o timer quando o countdown chega a 0
+          return 0; // Garante que o valor do countdown não seja negativo
+        }
+      });
     }, 1000);
 
     return () => clearInterval(timer);
